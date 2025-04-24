@@ -24,9 +24,11 @@ docker-compose up --build
 Si presenta problemas ejecute primero:
 ```bash
 docker-compose up oracle-xe --build
+```
 
 y luego:
 ```bash
 docker-compose up spring-app --build
+```
 
 En el directorio SQL encontrará el script para la creación de objetos en la BD.
