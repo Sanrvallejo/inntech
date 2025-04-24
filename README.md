@@ -20,6 +20,7 @@ Desde la raíz del proyecto, ejecuta:
 
 ```bash
 docker-compose up --build
+```
 
 Si presenta problemas ejecute primero:
 ```bash
