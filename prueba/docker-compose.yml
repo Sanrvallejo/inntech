@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  oracle-xe:
+    image: container-registry.oracle.com/database/express:latest
+    container_name: oracle-xe-app
+    ports:
+      - "1521:1521"
+    environment:
+      - ORACLE_PWD=123456
+      - ORACLE_CHARACTERSET=AL32UTF8
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    networks:
+      - spring-oracle-net
+
+  spring-app:
+    image: spring-api-rest
+    container_name: spring-app
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - oracle-xe
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle-xe:1521/XE
+      - SPRING_DATASOURCE_USERNAME=system
+      - SPRING_DATASOURCE_PASSWORD=123456
+    networks:
+      - spring-oracle-net
+
+volumes:
+  oracle_data:
+
+networks:
+  spring-oracle-net:
+    driver: bridge
